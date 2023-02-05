@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
+/*
  *   Current/In Progress Objective(s):
  *   =====================
  *
@@ -39,8 +39,13 @@ import java.io.IOException;
  *   =====================
  *      =when selecting a job during character select, stats can be accumulated by changing jobs
  *          - unless I code every race-job combo this might just be a "feature" ;)
+ *          - possible solution: send raceArray to job for a "default" set of stats then reset stats as the job changes?
  */
 
+
+/**
+ * Main method that launches the program
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {

@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+/**
+ * This method controls all user interaction
+ * */
 public class SceneController implements Initializable {
     private Stage stage;
     private Scene scene;
@@ -46,10 +50,14 @@ public class SceneController implements Initializable {
 
     @FXML
     private String[] races = {"Human", "Dwarf", "Elvan"};
+
+    @FXML
     private String[] jobs = {"Fighter", "Rogue", "Wizard"};
 
 
-//    switch from welcome-view to creation-view
+    /**
+     * This method switches the scene from welcome-view to creation-view
+     * */
     public void switchToCreation(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("creation-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -58,7 +66,9 @@ public class SceneController implements Initializable {
         stage.show();
     }
 
-//    switch from creation-view to arena-view
+    /**
+     * This method switches the scene from creation-view to arean-view
+     * */
     public void switchToArena(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("arena-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -67,33 +77,36 @@ public class SceneController implements Initializable {
         stage.show();
     }
 
+    /**
+     * This method monitors change in the choice boxes raceChoiceBox and jobChoiceBox
+     * If any change is detected
+     * */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+//        raceChoiceBox to show all available races
         raceChoiceBox.getItems().addAll(races);
+//        once interacted with the raceChoice box will
         raceChoiceBox.setOnAction(this::getRace);
 
+//        jobChoiceBox to show all available jobs
         jobChoiceBox.getItems().addAll(jobs);
         jobChoiceBox.setOnAction(this::getJob);
     }
 
     /**
-     *      this method gets the user's choice
-     *      then sets the base stats
-     */
+     * This method detects the user's choice in the raceChoiceBox
+     * Then sends necessary data to the setCharacterStats method
+     * */
     public void getRace(ActionEvent event){
-
-//        call setDefault method
-        setDefault();
-
 //        arrays for assigning value to stats
         int [] human = {40, 5, 5, 4, 4, 5};
         int [] dwarf = {50, 5, 6, 4, 4, 4};
         int [] elvan = {40, 5, 5, 4, 6, 4};
 
-//        get user choice
+//        get the user indicated choice from raceChoiceBox
         String userRace = raceChoiceBox.getValue();
 
-//
+//        Based on the user's choice this switch case will call the setCharacterStats method
         switch(userRace.toLowerCase()){
             case "human" -> {
                 CharacterStats stats = new CharacterStats(human[0], human[1], human[2], human[3], human[4], human[5]);
@@ -113,16 +126,20 @@ public class SceneController implements Initializable {
         }
     }
 
+    /**
+     * This method detects the user's choice in the jobChoiceBox
+     * Then sends necessary data to the setCharacterJobStats
+     * */
     public void getJob(ActionEvent event){
-
-//
+//        arrays for assigning value to stats
         int [] fighter = {20, 3, 1, 0, 0, 0};
         int [] rogue =   {10, 2, 0, 3, 0, 0};
         int [] wizard =  {10, 0, 0, 0, 3, 2};
 
-//
+//        get the user indicated choice from jobChoiceBox
         String userJob = jobChoiceBox.getValue();
 
+//        Based on the user's choice this switch case will call the setCharacterJobStats method
         switch (userJob.toLowerCase()){
             case "fighter" -> {
                 setCharacterJobStats(fighter);
@@ -139,17 +156,11 @@ public class SceneController implements Initializable {
         }
     }
 
-//    This method sets the stats to zero
-    public void setDefault(){
-        hpLabel.setText("0");
-        atkLabel.setText("0");
-        defLabel.setText("0");
-        agilLabel.setText("0");
-        mAtkLabel.setText("0");
-        mDefLabel.setText("0");
-    }
-
-//    This method
+    /**
+     * This method retrieves the base stats, adds the base stats to the appropriate element in the job(param) array
+     * Then sets each individual attribute with elements in the job(param) array
+     * @param job an array of stats passed from getJob(ActionEvent event) method
+     * */
     public void setCharacterJobStats(int[] job){
         String hp = hpLabel.getText();
         String atk = atkLabel.getText();
@@ -173,7 +184,10 @@ public class SceneController implements Initializable {
         mDefLabel.setText(String.valueOf(job[5]));
     }
 
-//    This method sets base stats
+    /**
+     * This method sets the base attributes
+     * @param stats an object to set the base stats of the character
+     * */
     public void setCharacterStats(CharacterStats stats){
         hpLabel.setText(String.valueOf(stats.getBaseHP()));
         atkLabel.setText(String.valueOf(stats.getBaseAttack()));

@@ -1,11 +1,13 @@
 package com.example.thearena;
 
+/**
+ * CharacterStats Class
+ * */
 public class CharacterStats {
 
     private String race;
     private String job;
 
-//  base stats are meant to be used to store permanent data
     private int baseHP;
     private int baseAttack;
     private int baseDefense;
@@ -13,10 +15,14 @@ public class CharacterStats {
     private int baseMagicAttack;
     private int baseMagicDefense;
 
-//    base constructor
+    /**
+     * Class Constructor
+     * */
     public CharacterStats() {}
 
-//    meant to facilitate setting base stats
+    /**
+     * Class constructor setting base character stats
+     * */
     public CharacterStats(int baseHP, int baseAttack, int baseDefense, int baseAgility, int baseMagicAttack, int baseMagicDefense) {
         this.baseHP = baseHP;
         this.baseAttack = baseAttack;
